@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Invite Sent Successfully{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow">
+            <div class="card-body p-4 text-center">
+                <div class="mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-check-circle-fill text-success" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                </div>
+
+                <h2 class="card-title mb-3">Invite Sent Successfully!</h2>
+                
+                <p class="text-muted mb-4">
+                    An invitation has been sent to <strong>{{ email_or_username }}</strong>
+                </p>
+
+                <div class="alert alert-info" role="alert">
+                    <h6 class="alert-heading">What to do next:</h6>
+                    <ol class="mb-0 text-start">
+                        <li>Check your email inbox for the Plex invitation</li>
+                        <li>Look for an email from Plex (noreply@plex.tv)</li>
+                        <li>Click the "Accept Invitation" button in the email</li>
+                        <li>You'll be able to access the shared libraries immediately</li>
+                    </ol>
+                </div>
+
+                <div class="mt-4">
+                    <p class="small text-muted mb-3">
+                        <strong>Note:</strong> The email may take a few minutes to arrive. 
+                        Check your spam folder if you don't see it.
+                    </p>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('main.index') }}" class="btn btn-outline-primary">
+                        Return to Home
+                    </a>
+                    <a href="https://app.plex.tv" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        Open Plex Web App
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

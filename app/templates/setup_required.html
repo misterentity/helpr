@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Required - Plex Invite System</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <h1 class="card-title text-center mb-4">Setup Required</h1>
+                        
+                        <div class="alert alert-warning" role="alert">
+                            <h5 class="alert-heading">Configuration Error</h5>
+                            <p>{{ error }}</p>
+                        </div>
+                        
+                        <h5 class="mt-4">Setup Instructions:</h5>
+                        <ol class="mb-4">
+                            <li>Copy <code>.env.example</code> to <code>.env</code></li>
+                            <li>Edit the <code>.env</code> file with your configuration:
+                                <ul class="mt-2">
+                                    <li><strong>SECRET_KEY:</strong> Generate using:<br>
+                                        <code>python -c "import secrets; print(secrets.token_hex(32))"</code>
+                                    </li>
+                                    <li><strong>PLEX_TOKEN:</strong> Get from your Plex account settings</li>
+                                    <li><strong>PLEX_SERVER_NAME:</strong> Your Plex server name</li>
+                                    <li><strong>ADMIN_USERNAME:</strong> Admin username for dashboard</li>
+                                    <li><strong>ADMIN_PASSWORD_HASH:</strong> Generate using:<br>
+                                        <code>python -c "from werkzeug.security import generate_password_hash; print(generate_password_hash('your_password'))"</code>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>Restart the application</li>
+                        </ol>
+                        
+                        <p class="text-muted">
+                            For more information, see the README.md file.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Request Plex Invite{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h2 class="card-title text-center mb-4">Request Plex Access</h2>
+                <p class="text-muted text-center mb-4">
+                    Enter your Plex username or email address to receive an invite to our Plex server.
+                </p>
+
+                <form method="POST" action="{{ url_for('main.request_invite') }}" id="inviteForm">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="mb-3">
+                        <label for="email_or_username" class="form-label">Plex Username or Email</label>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-lg" 
+                            id="email_or_username" 
+                            name="email_or_username" 
+                            required
+                            placeholder="username or email@example.com"
+                            autocomplete="off"
+                        >
+                        <div class="form-text">
+                            This should be the email or username associated with your Plex account.
+                        </div>
+                    </div>
+
+                    {% if require_invite_code %}
+                    <div class="mb-3">
+                        <label for="invite_code" class="form-label">Invite Code</label>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-lg" 
+                            id="invite_code" 
+                            name="invite_code" 
+                            required
+                            placeholder="Enter invite code"
+                            autocomplete="off"
+                        >
+                        <div class="form-text">
+                            Enter the invite code provided by the administrator.
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Request Invite</button>
+                    </div>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <p class="text-muted small">
+                        Don't have a Plex account? 
+                        <a href="https://www.plex.tv/sign-up/" target="_blank" rel="noopener noreferrer">
+                            Create one here
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h5>What happens next?</h5>
+            <ol class="small text-muted">
+                <li>You'll receive an email invitation from Plex</li>
+                <li>Click the link in the email to accept the invitation</li>
+                <li>Access the shared libraries from your Plex app or web player</li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

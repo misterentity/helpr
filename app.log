@@ -1,0 +1,133 @@
+2025-10-20 09:55:37,401 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.186:5000
+2025-10-20 09:55:37,401 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-20 09:55:42,953 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:55:42] "GET / HTTP/1.1" 200 -
+2025-10-20 09:55:43,086 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:55:43] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-10-20 09:55:43,631 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:55:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-20 09:56:05,086 - flask_wtf.csrf - INFO - The CSRF token is missing.
+2025-10-20 09:56:05,087 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:56:05] "[31m[1mPOST /request-invite HTTP/1.1[0m" 400 -
+2025-10-20 09:56:08,784 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:56:08] "GET / HTTP/1.1" 200 -
+2025-10-20 09:56:08,839 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:56:08] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 09:56:20,109 - flask_wtf.csrf - INFO - The CSRF token is missing.
+2025-10-20 09:56:20,110 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:56:20] "[31m[1mPOST /request-invite HTTP/1.1[0m" 400 -
+2025-10-20 09:57:16,230 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:57:16] "GET / HTTP/1.1" 200 -
+2025-10-20 09:57:16,284 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:57:16] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-10-20 09:57:16,363 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:57:16] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-20 09:57:26,220 - flask_wtf.csrf - INFO - The CSRF token is missing.
+2025-10-20 09:57:26,220 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:57:26] "[31m[1mPOST /request-invite HTTP/1.1[0m" 400 -
+2025-10-20 09:57:52,620 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.186:5000
+2025-10-20 09:57:52,620 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-20 09:58:13,020 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:58:13] "GET / HTTP/1.1" 200 -
+2025-10-20 09:58:13,211 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:58:13] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 09:58:27,613 - app.plex_service - ERROR - Invalid Plex token
+2025-10-20 09:58:27,619 - app.routes.main - ERROR - Error sending invite to dave.macneill@protonmail.com: Invalid Plex token. Please check your PLEX_TOKEN configuration.
+2025-10-20 09:58:27,620 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:58:27] "[32mPOST /request-invite HTTP/1.1[0m" 302 -
+2025-10-20 09:58:27,626 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:58:27] "GET / HTTP/1.1" 200 -
+2025-10-20 09:58:27,682 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 09:58:27] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:08:00,225 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.186:5000
+2025-10-20 10:08:00,225 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-20 10:08:05,085 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:08:05] "GET / HTTP/1.1" 200 -
+2025-10-20 10:08:05,204 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:08:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:08:20,451 - plexapi - ERROR - http://74.207.254.8:8443: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-10-20 10:08:21,181 - app.plex_service - ERROR - User not found: dave.macneill@protonmail.com
+2025-10-20 10:08:21,186 - app.routes.main - ERROR - Error sending invite to dave.macneill@protonmail.com: Plex user 'dave.macneill@protonmail.com' not found. Please ensure the username or email is correct.
+2025-10-20 10:08:21,187 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:08:21] "[32mPOST /request-invite HTTP/1.1[0m" 302 -
+2025-10-20 10:08:21,193 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:08:21] "GET / HTTP/1.1" 200 -
+2025-10-20 10:08:21,228 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:08:21] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:08:22,419 - plexapi - ERROR - http://108.180.173.253:28344: HTTPConnectionPool(host='108.180.173.253', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000163E9ED1090>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:08:22,420 - plexapi - ERROR - https://108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct:28344: HTTPSConnectionPool(host='108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000163E9ED0E10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:08:23,291 - app.plex_service - INFO - Successfully connected to Plex server: WORKSTATION
+2025-10-20 10:08:23,483 - app.plex_service - ERROR - Bad request when inviting dave.macneill@protonmail.com: (400) bad_request; https://plex.tv/api/servers/dfd4ec4f666d0df25360ea2093c38130656f0c07/shared_servers <?xml version="1.0" encoding="UTF-8"?> <Response code="400" status="You're already sharing this server with dave.macneill@protonmail.com. Please edit your existing share."/> 
+2025-10-20 10:08:23,489 - app.routes.main - ERROR - Error sending invite to dave.macneill@protonmail.com: Invalid request: (400) bad_request; https://plex.tv/api/servers/dfd4ec4f666d0df25360ea2093c38130656f0c07/shared_servers <?xml version="1.0" encoding="UTF-8"?> <Response code="400" status="You're already sharing this server with dave.macneill@protonmail.com. Please edit your existing share."/> 
+2025-10-20 10:08:23,490 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:08:23] "[32mPOST /request-invite HTTP/1.1[0m" 302 -
+2025-10-20 10:08:38,178 - app.plex_service - ERROR - Bad request when inviting dave.macneill@gmail.com: (400) bad_request; https://plex.tv/api/servers/dfd4ec4f666d0df25360ea2093c38130656f0c07/shared_servers <?xml version="1.0" encoding="UTF-8"?> <Response code="400" status="You cannot send an invitation to yourself."/> 
+2025-10-20 10:08:38,183 - app.routes.main - ERROR - Error sending invite to dave.macneill@gmail.com: Invalid request: (400) bad_request; https://plex.tv/api/servers/dfd4ec4f666d0df25360ea2093c38130656f0c07/shared_servers <?xml version="1.0" encoding="UTF-8"?> <Response code="400" status="You cannot send an invitation to yourself."/> 
+2025-10-20 10:08:38,184 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:08:38] "[32mPOST /request-invite HTTP/1.1[0m" 302 -
+2025-10-20 10:08:38,190 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:08:38] "GET / HTTP/1.1" 200 -
+2025-10-20 10:08:38,227 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:08:38] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:09:30,374 - app.plex_service - INFO - Successfully sent invite to macneillj@gmail.com with 0 libraries
+2025-10-20 10:09:30,379 - app.routes.main - INFO - Successfully sent invite to macneillj@gmail.com
+2025-10-20 10:09:30,382 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:09:30] "POST /request-invite HTTP/1.1" 200 -
+2025-10-20 10:09:30,452 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:09:30] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:16:29,087 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:16:29] "GET /admin/login HTTP/1.1" 200 -
+2025-10-20 10:16:29,169 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:16:29] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-10-20 10:16:29,783 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:16:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-20 10:16:37,193 - app.routes.admin - INFO - Admin user admin logged in
+2025-10-20 10:16:37,194 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:16:37] "[32mPOST /admin/login HTTP/1.1[0m" 302 -
+2025-10-20 10:16:37,205 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:16:38,244 - plexapi - ERROR - http://23.239.4.140:8443: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-10-20 10:16:40,220 - plexapi - ERROR - http://108.180.173.253:28344: HTTPConnectionPool(host='108.180.173.253', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000163E9DFC160>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:16:40,220 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:16:40] "[32mPOST /admin/login HTTP/1.1[0m" 302 -
+2025-10-20 10:16:40,228 - plexapi - ERROR - https://108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct:28344: HTTPSConnectionPool(host='108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000163E98F9E50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:16:40,530 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:16:40,784 - app.plex_service - INFO - Successfully connected to Plex server: WORKSTATION
+2025-10-20 10:16:40,788 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:16:40,794 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:16:40] "GET /admin/dashboard HTTP/1.1" 200 -
+2025-10-20 10:16:41,402 - plexapi - ERROR - http://45.79.95.179:8443: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-10-20 10:16:43,390 - plexapi - ERROR - http://108.180.173.253:28344: HTTPConnectionPool(host='108.180.173.253', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000163E9DFC160>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:16:43,390 - plexapi - ERROR - https://108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct:28344: HTTPSConnectionPool(host='108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000163E98F9E50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:16:43,398 - app.plex_service - INFO - Successfully connected to Plex server: WORKSTATION
+2025-10-20 10:16:43,402 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:16:43,403 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:16:43] "GET /admin/dashboard HTTP/1.1" 200 -
+2025-10-20 10:16:43,780 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:16:43] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:16:59,785 - app.routes.admin - INFO - Admin updated library settings: ['Movies', 'TV Shows']
+2025-10-20 10:16:59,785 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:16:59] "[32mPOST /admin/settings HTTP/1.1[0m" 302 -
+2025-10-20 10:17:00,114 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:17:01,108 - plexapi - ERROR - http://74.207.254.8:8443: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-10-20 10:17:03,061 - plexapi - ERROR - http://108.180.173.253:28344: HTTPConnectionPool(host='108.180.173.253', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000163E9DFD9D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:17:03,093 - plexapi - ERROR - https://108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct:28344: HTTPSConnectionPool(host='108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000163E9ED2D50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:17:03,100 - app.plex_service - INFO - Successfully connected to Plex server: WORKSTATION
+2025-10-20 10:17:03,104 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:17:03,105 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:03] "GET /admin/dashboard HTTP/1.1" 200 -
+2025-10-20 10:17:03,139 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:03] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:17:05,251 - app.routes.admin - INFO - Admin updated library settings: ['Movies', 'TV Shows']
+2025-10-20 10:17:05,252 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:05] "[32mPOST /admin/settings HTTP/1.1[0m" 302 -
+2025-10-20 10:17:05,561 - app.routes.admin - INFO - Admin updated library settings: ['Movies', 'TV Shows']
+2025-10-20 10:17:05,562 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:05] "[32mPOST /admin/settings HTTP/1.1[0m" 302 -
+2025-10-20 10:17:05,764 - app.routes.admin - INFO - Admin updated library settings: ['Movies', 'TV Shows']
+2025-10-20 10:17:05,765 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:05] "[32mPOST /admin/settings HTTP/1.1[0m" 302 -
+2025-10-20 10:17:05,872 - app.routes.admin - INFO - Admin updated library settings: ['Movies', 'TV Shows']
+2025-10-20 10:17:05,873 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:05] "[32mPOST /admin/settings HTTP/1.1[0m" 302 -
+2025-10-20 10:17:05,933 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:17:06,967 - plexapi - ERROR - http://45.56.91.118:8443: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-10-20 10:17:08,972 - plexapi - ERROR - https://108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct:28344: HTTPSConnectionPool(host='108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000163E9ED2AD0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:17:08,972 - plexapi - ERROR - http://108.180.173.253:28344: HTTPConnectionPool(host='108.180.173.253', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000163E9DFC9E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:17:09,021 - app.plex_service - INFO - Successfully connected to Plex server: WORKSTATION
+2025-10-20 10:17:09,024 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:17:09,025 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:09] "GET /admin/dashboard HTTP/1.1" 200 -
+2025-10-20 10:17:09,039 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:09] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:17:10,842 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:10] "GET / HTTP/1.1" 200 -
+2025-10-20 10:17:10,926 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:10] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:17:22,548 - app.plex_service - ERROR - Bad request when inviting macneillj@gmail.com: (400) bad_request; https://plex.tv/api/servers/dfd4ec4f666d0df25360ea2093c38130656f0c07/shared_servers <?xml version="1.0" encoding="UTF-8"?> <Response code="400" status="You're already sharing this server with macneillj@gmail.com. Please edit your existing share."/> 
+2025-10-20 10:17:22,553 - app.routes.main - ERROR - Error sending invite to macneillj@gmail.com: Invalid request: (400) bad_request; https://plex.tv/api/servers/dfd4ec4f666d0df25360ea2093c38130656f0c07/shared_servers <?xml version="1.0" encoding="UTF-8"?> <Response code="400" status="You're already sharing this server with macneillj@gmail.com. Please edit your existing share."/> 
+2025-10-20 10:17:22,553 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:22] "[32mPOST /request-invite HTTP/1.1[0m" 302 -
+2025-10-20 10:17:22,559 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:22] "GET / HTTP/1.1" 200 -
+2025-10-20 10:17:22,591 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:17:41,827 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:17:42,738 - plexapi - ERROR - http://45.79.95.179:8443: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-10-20 10:17:44,707 - plexapi - ERROR - https://108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct:28344: HTTPSConnectionPool(host='108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000163E98FA5D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:17:44,707 - plexapi - ERROR - http://108.180.173.253:28344: HTTPConnectionPool(host='108.180.173.253', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000163E9DFC380>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:17:44,735 - app.plex_service - INFO - Successfully connected to Plex server: WORKSTATION
+2025-10-20 10:17:44,739 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:17:44,739 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:44] "GET /admin/dashboard HTTP/1.1" 200 -
+2025-10-20 10:17:44,790 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:17:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:20:32,250 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:20:32] "GET / HTTP/1.1" 200 -
+2025-10-20 10:20:32,302 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:20:32] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:20:46,207 - app.plex_service - INFO - Successfully sent invite to dave.macneill@protonmail.com with 2 libraries
+2025-10-20 10:20:46,213 - app.routes.main - INFO - Successfully sent invite to dave.macneill@protonmail.com
+2025-10-20 10:20:46,214 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:20:46] "POST /request-invite HTTP/1.1" 200 -
+2025-10-20 10:20:46,279 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:20:46] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:21:40,468 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:21:40] "GET / HTTP/1.1" 200 -
+2025-10-20 10:21:40,554 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:21:40] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:21:50,241 - app.plex_service - INFO - Successfully sent invite to macneillj@gmail.com with 2 libraries
+2025-10-20 10:21:50,247 - app.routes.main - INFO - Successfully sent invite to macneillj@gmail.com
+2025-10-20 10:21:50,248 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:21:50] "POST /request-invite HTTP/1.1" 200 -
+2025-10-20 10:21:50,316 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:21:50] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -

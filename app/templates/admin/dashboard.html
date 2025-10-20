@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Admin Dashboard</h2>
+            <div>
+                <span class="text-muted me-3">Welcome, {{ current_user.username }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Connection Status -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Plex Connection Status</h5>
+                {% if connection_status.success %}
+                    <div class="alert alert-success mb-0">
+                        <i class="bi bi-check-circle-fill"></i>
+                        {{ connection_status.message }}
+                        <br>
+                        <small>Libraries available: {{ connection_status.library_count }}</small>
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger mb-0">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        {{ connection_status.message }}
+                    </div>
+                {% endif %}
+                <button class="btn btn-sm btn-outline-primary mt-2" onclick="testConnection()">
+                    Test Connection
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="card-title">{{ stats.total }}</h3>
+                <p class="card-text text-muted">Total Requests</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="card-title text-success">{{ stats.successful }}</h3>
+                <p class="card-text text-muted">Successful Invites</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="card-title text-danger">{{ stats.failed }}</h3>
+                <p class="card-text text-muted">Failed Invites</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Library Settings -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Library Settings</h5>
+                <p class="text-muted">Select which libraries to share with new users by default</p>
+                
+                <form method="POST" action="{{ url_for('admin.update_settings') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="row">
+                        {% for library in libraries %}
+                        <div class="col-md-6 col-lg-4 mb-2">
+                            <div class="form-check">
+                                <input 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    name="libraries" 
+                                    value="{{ library.title }}" 
+                                    id="lib_{{ loop.index }}"
+                                    {% if library.title in configured_libraries %}checked{% endif %}
+                                >
+                                <label class="form-check-label" for="lib_{{ loop.index }}">
+                                    {{ library.title }} <small class="text-muted">({{ library.type }})</small>
+                                </label>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    {% if libraries %}
+                    <button type="submit" class="btn btn-primary mt-3">Save Library Settings</button>
+                    {% else %}
+                    <div class="alert alert-warning mt-3 mb-0">
+                        No libraries found. Please check your Plex connection.
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Invites -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Recent Invite Requests</h5>
+                
+                {% if recent_invites %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Email/Username</th>
+                                <th>Timestamp</th>
+                                <th>Status</th>
+                                <th>Error Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invite in recent_invites %}
+                            <tr>
+                                <td>{{ invite.email_or_username }}</td>
+                                <td>{{ invite.timestamp }}</td>
+                                <td>
+                                    {% if invite.status == 'success' %}
+                                        <span class="badge bg-success">Success</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">Failed</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if invite.error_message %}
+                                        <small class="text-danger">{{ invite.error_message }}</small>
+                                    {% else %}
+                                        <small class="text-muted">-</small>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted mb-0">No invite requests yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function testConnection() {
+    fetch("{{ url_for('admin.test_connection') }}")
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Connection successful!\n\n' + data.message);
+            } else {
+                alert('Connection failed!\n\n' + data.message);
+            }
+        })
+        .catch(error => {
+            alert('Error testing connection: ' + error);
+        });
+}
+</script>
+{% endblock %}
+

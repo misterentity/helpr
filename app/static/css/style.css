@@ -1,0 +1,96 @@
+/* Custom styles for Plex Invite System */
+
+/* Ensure minimum tap target size for mobile */
+@media (max-width: 768px) {
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .form-control {
+        min-height: 44px;
+    }
+    
+    .form-check-input {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .form-check-label {
+        padding-left: 8px;
+    }
+}
+
+/* Flash messages styling */
+.alert {
+    border-radius: 8px;
+}
+
+/* Card shadows */
+.card {
+    border-radius: 12px;
+}
+
+.card.shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Improved table responsiveness on mobile */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .table td, .table th {
+        padding: 0.5rem;
+    }
+}
+
+/* Better spacing for forms on mobile */
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1.5rem !important;
+    }
+}
+
+/* Navbar brand styling */
+.navbar-brand {
+    font-weight: 600;
+}
+
+/* Footer styling */
+footer {
+    margin-top: auto;
+}
+
+/* Success icon animation */
+.bi-check-circle-fill {
+    animation: scaleIn 0.3s ease-in-out;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Table hover effect */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Stats cards */
+.card-title {
+    font-weight: 600;
+}
+
+/* Responsive columns for library checkboxes */
+@media (max-width: 768px) {
+    .form-check {
+        margin-bottom: 0.75rem;
+    }
+}
+
