@@ -131,3 +131,11 @@
 2025-10-20 10:21:50,247 - app.routes.main - INFO - Successfully sent invite to macneillj@gmail.com
 2025-10-20 10:21:50,248 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:21:50] "POST /request-invite HTTP/1.1" 200 -
 2025-10-20 10:21:50,316 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:21:50] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-20 10:28:44,567 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:28:45,500 - plexapi - ERROR - http://45.56.91.134:8443: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-10-20 10:28:47,478 - plexapi - ERROR - http://108.180.173.253:28344: HTTPConnectionPool(host='108.180.173.253', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000163E9DFC160>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:28:47,494 - plexapi - ERROR - https://108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct:28344: HTTPSConnectionPool(host='108-180-173-253.c330eff890f1476f9f4ea3ec383b790c.plex.direct', port=28344): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000163E98FA5D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-10-20 10:28:48,308 - app.plex_service - INFO - Successfully connected to Plex server: WORKSTATION
+2025-10-20 10:28:48,315 - app.plex_service - INFO - Retrieved 2 libraries from Plex
+2025-10-20 10:28:48,317 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:28:48] "GET /admin/dashboard HTTP/1.1" 200 -
+2025-10-20 10:28:49,464 - werkzeug - INFO - 127.0.0.1 - - [20/Oct/2025 10:28:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
