@@ -12,6 +12,11 @@ class PlexService:
         self.account = None
         self.server = None
     
+    def _ensure_connected(self):
+        """Ensure connection is established, reconnect only if necessary."""
+        if self.account is None or self.server is None:
+            self.connect_to_plex()
+    
     def connect_to_plex(self):
         """Establish connection to Plex server using token and server name."""
         try:
@@ -31,8 +36,7 @@ class PlexService:
     
     def get_libraries(self):
         """Fetch available library sections from the Plex server."""
-        if not self.server:
-            self.connect_to_plex()
+        self._ensure_connected()
         
         try:
             sections = self.server.library.sections()
@@ -45,8 +49,7 @@ class PlexService:
     
     def send_invite(self, email_or_username, library_names):
         """Send a Plex invite to the specified user with selected libraries."""
-        if not self.account:
-            self.connect_to_plex()
+        self._ensure_connected()
         
         try:
             # Get library sections to share
@@ -92,7 +95,7 @@ class PlexService:
     def test_connection(self):
         """Test the Plex connection and return status."""
         try:
-            self.connect_to_plex()
+            self._ensure_connected()
             libraries = self.get_libraries()
             return {
                 'success': True,

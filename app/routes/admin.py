@@ -51,20 +51,25 @@ def logout():
 def dashboard():
     """Admin dashboard."""
     try:
-        # Get Plex libraries
+        # Get Plex libraries (this also ensures connection)
         libraries = plex_service.get_libraries()
         
         # Get currently configured libraries
         configured_libraries = Config.get_library_config()
         
-        # Get recent invite requests
-        recent_invites = get_recent_invites(limit=50)
+        # Get recent invite requests (reduced from 50 to 20 for better performance)
+        recent_invites = get_recent_invites(limit=20)
         
         # Get statistics
         stats = get_invite_stats()
         
-        # Test connection status
-        connection_status = plex_service.test_connection()
+        # Build connection status from successful library fetch (no redundant API call)
+        connection_status = {
+            'success': True,
+            'server_name': Config.PLEX_SERVER_NAME,
+            'library_count': len(libraries),
+            'message': f"Successfully connected to {Config.PLEX_SERVER_NAME}"
+        }
         
         return render_template(
             'admin/dashboard.html',
@@ -82,7 +87,7 @@ def dashboard():
                              configured_libraries=[], 
                              recent_invites=[],
                              stats={'total': 0, 'successful': 0, 'failed': 0},
-                             connection_status={'success': False, 'error': str(e)})
+                             connection_status={'success': False, 'error': str(e), 'message': f'Connection failed: {str(e)}'})
 
 @admin_bp.route('/settings', methods=['POST'])
 @login_required

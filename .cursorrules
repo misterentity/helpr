@@ -1,0 +1,97 @@
+# .cursorrules - Project Intelligence
+
+## Helpr Project Patterns
+
+### Performance Considerations
+- **PlexAPI connections are expensive** (1-3 seconds per connection)
+  - Always reuse connections within request scope
+  - Avoid reconnecting unless necessary
+  - Consider caching library data (TTL: 5-10 minutes)
+  - Never call test_connection() when you already have library data
+
+### Plex API Integration Patterns
+- Use PlexAPI library, not raw HTTP requests
+- Always wrap Plex calls in try/except with specific exception handling:
+  - `BadRequest`: User already invited or validation error
+  - `Unauthorized`: Invalid token
+  - `NotFound`: Server or user not found
+- Connection flow: MyPlexAccount(token) → resource(name) → connect()
+- Invite flow: account.inviteFriend(user, server, sections)
+
+### Configuration Management
+- Environment variables via .env file (use python-dotenv)
+- Runtime config in config.json (mutable settings like library selection)
+- Never commit .env, config.json, or invites.db to git
+- Always provide env.template for documentation
+
+### Security Patterns
+- Always use CSRF protection (Flask-WTF)
+- Always use rate limiting (Flask-Limiter)
+- Hash passwords with Werkzeug (pbkdf2:sha256, not MD5/SHA1)
+- Use Flask-Login for session management
+- Validate and sanitize all user input
+- Check URL safety before redirects (prevent open redirects)
+
+### Database Patterns
+- Use SQLAlchemy ORM, not raw SQL
+- Support both SQLite (dev) and PostgreSQL (prod)
+- Always include db.session.rollback() in exception handlers
+- Auto-detect Azure DATABASE_URL or AZURE_POSTGRESQL_CONNECTIONSTRING
+- Use UTC timestamps (datetime.utcnow)
+
+### Error Handling
+- Log at appropriate levels (info, warning, error)
+- Use flash messages for user feedback
+- Render user-friendly error pages (404.html, 500.html)
+- Never expose sensitive info (tokens, passwords) in error messages
+- Always return after flash/redirect (don't continue execution)
+
+### Flask Application Structure
+- Use application factory pattern (create_app)
+- Use blueprints for route organization
+- Initialize extensions in __init__.py
+- Use login_required decorator for admin routes
+- Register error handlers at app level
+
+### Code Organization Preferences
+- Service layer for external API interactions (plex_service.py)
+- Utils for reusable helper functions
+- Models for database schema and queries
+- Routes for request handling only (thin controllers)
+
+### Deployment Context
+- Expect Azure Web App deployment
+- Gunicorn with 4 workers for production
+- Use startup.sh for Azure init
+- PostgreSQL connection string handling for Azure-specific format
+
+### User Preferences
+- User prefers explicit, reviewable code changes
+- User expects Memory Bank maintenance per protocol
+- User wants performance optimizations when identified
+- User values security best practices
+
+## Anti-Patterns to Avoid
+- ❌ Don't reconnect to Plex on every method call
+- ❌ Don't make duplicate API calls in same request
+- ❌ Don't store passwords in plaintext
+- ❌ Don't skip CSRF protection
+- ❌ Don't ignore rate limiting
+- ❌ Don't use weak hashing algorithms
+- ❌ Don't commit secrets to git
+- ❌ Don't ignore exception handling
+- ❌ Don't continue after redirect (return immediately)
+
+## Known Challenges
+- Plex API documentation is limited; use PlexAPI library source code as reference
+- PlexAPI exceptions don't always have clear messages; add context in logs
+- Azure PostgreSQL connection strings have two env var names; check both
+- config.json can become corrupt; always handle JSONDecodeError
+
+## Recent Learnings (2025-10-20)
+- **Critical Performance Issue**: Redundant Plex connections were causing 3-5 second page loads
+  - Root cause: Not reusing connections between method calls
+  - Root cause: Duplicate API calls in dashboard (test_connection + get_libraries)
+  - Solution: Persistent connection with _ensure_connected() pattern
+  - Solution: Derive connection status from existing API call, don't make separate test call
+
