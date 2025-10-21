@@ -1,6 +1,20 @@
-# Plex Invite Automation System
+# Helpr - Plex Invite Automation
+
+![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![Flask](https://img.shields.io/badge/flask-3.0+-green.svg)
 
 A web application that automates the process of inviting friends and family to your Plex server. Users can request access through a simple web form, and administrators can manage invitations and configure library access through a secure dashboard.
+
+## ⚡ Quick Start
+
+1. Clone the repository
+2. Copy `env.template` to `.env` and configure your Plex credentials
+3. Install dependencies: `pip install -r requirements.txt`
+4. Run: `python run.py`
+5. Access admin dashboard at `http://localhost:5000/admin/login`
+
+See [Installation](#installation) for detailed instructions.
 
 ## Features
 
@@ -27,8 +41,8 @@ A web application that automates the process of inviting friends and family to y
 ### 1. Clone or Download the Repository
 
 ```bash
-git clone <repository-url>
-cd plex-invite-automation
+git clone https://github.com/YOUR-USERNAME/helpr.git
+cd helpr
 ```
 
 ### 2. Create a Virtual Environment
@@ -54,7 +68,7 @@ pip install -r requirements.txt
 Create a `.env` file by copying the example:
 
 ```bash
-cp .env.example .env
+cp env.template .env
 ```
 
 Edit the `.env` file with your configuration:
@@ -274,7 +288,7 @@ plex-invite-automation/
 ├── config.py                # Configuration management
 ├── run.py                   # Application entry point
 ├── requirements.txt         # Python dependencies
-├── .env.example            # Example environment variables
+├── env.template            # Example environment variables
 ├── .gitignore              # Git ignore rules
 ├── config.json             # Library configuration
 └── README.md               # This file
@@ -294,17 +308,49 @@ Based on the project requirements document (PRD), potential future enhancements 
 - **OAuth Authentication**: Allow users to authenticate directly with Plex
 - **Batch Invitations**: Upload CSV files to invite multiple users at once
 
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+
+- Reporting bugs
+- Suggesting features
+- Submitting pull requests
+- Development setup
+- Code style guidelines
+
+## Security
+
+Found a security vulnerability? Please report it privately. See [SECURITY.md](SECURITY.md) for details on:
+
+- How to report vulnerabilities
+- Security best practices
+- Supported versions
+
+## Deployment
+
+For production deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md) which covers:
+
+- Docker deployment
+- Database configuration
+- Reverse proxy setup
+- Cloud platform deployment
+- Security hardening
+
 ## License
 
-This project is provided as-is for personal use. Please ensure you comply with Plex's Terms of Service when using this application.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+**Important**: This is free and open-source software. You are free to use, modify, and distribute it under the terms of the GPL-3.0 license. Please ensure you comply with both the license terms and Plex's Terms of Service when using this application.
 
 ## Support
 
 For issues, questions, or contributions:
 
-1. Check the troubleshooting section above
-2. Review the project's issue tracker (if available)
-3. Consult the Plex API documentation: https://python-plexapi.readthedocs.io/
+- **Bug Reports**: Open an issue on GitHub
+- **Feature Requests**: Open an issue with the "enhancement" label
+- **Security Issues**: See [SECURITY.md](SECURITY.md) for private reporting
+- **General Questions**: Check existing issues or open a discussion
+- **Plex API Documentation**: https://python-plexapi.readthedocs.io/
 
 ## Acknowledgments
 
