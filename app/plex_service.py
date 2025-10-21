@@ -47,7 +47,7 @@ class PlexService:
             logger.error(f"Error fetching libraries: {str(e)}")
             raise ValueError(f"Error fetching libraries: {str(e)}")
     
-    def send_invite(self, email_or_username, library_names):
+    def send_invite(self, email_or_username, library_names, allow_downloads=False):
         """Send a Plex invite to the specified user with selected libraries."""
         self._ensure_connected()
         
@@ -66,7 +66,7 @@ class PlexService:
                 user=email_or_username,
                 server=self.server,
                 sections=sections_arg,
-                allowSync=False,
+                allowSync=allow_downloads,
                 allowCameraUpload=False,
                 allowChannels=False,
                 filterMovies=None,
@@ -74,7 +74,7 @@ class PlexService:
                 filterMusic=None
             )
             
-            logger.info(f"Successfully sent invite to {email_or_username} with {len(sections)} libraries")
+            logger.info(f"Successfully sent invite to {email_or_username} with {len(sections)} libraries (downloads: {allow_downloads})")
             return True
             
         except BadRequest as e:
@@ -91,6 +91,71 @@ class PlexService:
         except Exception as e:
             logger.error(f"Error sending invite to {email_or_username}: {str(e)}")
             raise ValueError(f"Error sending invite: {str(e)}")
+    
+    def send_invite_with_tier(self, email_or_username, tier):
+        """Send a Plex invite with tier-specific settings."""
+        library_names = tier.library_names if tier.library_names else []
+        allow_downloads = tier.allow_downloads
+        return self.send_invite(email_or_username, library_names, allow_downloads)
+    
+    def revoke_access(self, email_or_username):
+        """Revoke a user's access to the Plex server."""
+        self._ensure_connected()
+        
+        try:
+            # Remove the user as a friend, which revokes their access
+            self.account.removeFriend(user=email_or_username)
+            logger.info(f"Successfully revoked access for {email_or_username}")
+            return True
+        except NotFound:
+            logger.warning(f"User {email_or_username} not found when trying to revoke access")
+            # User doesn't exist, so technically access is "revoked"
+            return True
+        except Exception as e:
+            logger.error(f"Error revoking access for {email_or_username}: {str(e)}")
+            raise ValueError(f"Error revoking access: {str(e)}")
+    
+    def update_user_permissions(self, email_or_username, library_names, allow_downloads):
+        """Update an existing user's permissions (requires remove and re-invite)."""
+        self._ensure_connected()
+        
+        try:
+            # First, try to update (may not be supported by PlexAPI directly)
+            # If not possible, we need to remove and re-invite
+            logger.info(f"Updating permissions for {email_or_username}")
+            
+            # Get library sections to share
+            sections = []
+            if library_names:
+                all_sections = self.server.library.sections()
+                sections = [section for section in all_sections if section.title in library_names]
+            
+            sections_arg = sections if sections else None
+            
+            # Try to update friend permissions
+            # Note: PlexAPI may require removing and re-inviting
+            self.account.updateFriend(
+                user=email_or_username,
+                server=self.server,
+                sections=sections_arg,
+                allowSync=allow_downloads
+            )
+            
+            logger.info(f"Successfully updated permissions for {email_or_username}")
+            return True
+        except AttributeError:
+            # updateFriend may not exist, fall back to remove and re-invite
+            logger.warning(f"updateFriend not available, removing and re-inviting {email_or_username}")
+            try:
+                self.revoke_access(email_or_username)
+                self.send_invite(email_or_username, library_names, allow_downloads)
+                return True
+            except Exception as e:
+                logger.error(f"Error updating permissions via remove/re-invite: {str(e)}")
+                raise ValueError(f"Error updating permissions: {str(e)}")
+        except Exception as e:
+            logger.error(f"Error updating permissions for {email_or_username}: {str(e)}")
+            raise ValueError(f"Error updating permissions: {str(e)}")
     
     def test_connection(self):
         """Test the Plex connection and return status."""

@@ -88,10 +88,57 @@
 - Azure PostgreSQL connection strings have two env var names; check both
 - config.json can become corrupt; always handle JSONDecodeError
 
-## Recent Learnings (2025-10-20)
+## Recent Learnings
+
+### Performance Optimization (2025-10-20)
 - **Critical Performance Issue**: Redundant Plex connections were causing 3-5 second page loads
   - Root cause: Not reusing connections between method calls
   - Root cause: Duplicate API calls in dashboard (test_connection + get_libraries)
   - Solution: Persistent connection with _ensure_connected() pattern
   - Solution: Derive connection status from existing API call, don't make separate test call
+
+### Subscription System Implementation (2025-10-21)
+- **Stripe Integration Patterns**:
+  - Always verify webhook signatures before processing
+  - CSRF must be exempt on webhook endpoints (Stripe can't include tokens)
+  - Implement idempotent webhook handling (check if resource already exists)
+  - Use Stripe CLI for local webhook testing: `stripe listen --forward-to localhost:5000/webhook/stripe`
+  - HTTPS is required for production webhooks (use ngrok for local HTTPS testing)
+  
+- **Background Job Patterns**:
+  - APScheduler runs in-process by default
+  - For multi-worker deployments, ensure only one worker runs scheduler
+  - Daily jobs are sufficient for subscription expiry (real-time not needed)
+  - Always log job execution for audit trail
+  
+- **Plex Revocation**:
+  - PlexAPI `updateFriend()` may not exist in all versions
+  - Fallback: remove friend and re-invite with new settings
+  - `removeFriend()` is the reliable way to revoke access
+  - Test revocation in development before deploying
+  
+- **Tier Management**:
+  - Store tiers in database (not just config.json) for flexibility
+  - Stripe Price ID links tier to Stripe product
+  - Library names stored as JSON for easy updates
+  - Allow downloads controlled per-tier via allowSync parameter
+  
+- **Grandfathering Strategy**:
+  - Create explicit "Grandfathered" tier for legacy users
+  - Set current_period_end to None for permanent access
+  - Link InviteRequest to Subscription for audit trail
+  - Migration is idempotent (checks for existing subscriptions)
+
+- **Database Design**:
+  - Use Enum for subscription status (type-safe)
+  - Index foreign keys (tier_id, subscription_id)
+  - Index frequently queried fields (email, stripe_subscription_id, current_period_end)
+  - Store both stripe_customer_id and stripe_subscription_id for complete tracking
+
+- **Security Learnings**:
+  - Never log Stripe secret keys
+  - Webhook secrets must match environment exactly
+  - Test mode and live mode require separate configurations
+  - Rate limit checkout endpoint (prevent abuse)
+  - All Stripe API calls should be in try/except with specific error handling
 

@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}Tier Management - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="h3">Tier Management</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Tiers</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Create New Tier -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Create New Tier</h5>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('admin.create_tier') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="new_name" class="form-label">Tier Name</label>
+                        <input type="text" name="name" id="new_name" class="form-control" required placeholder="e.g., Without Downloads">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="new_price" class="form-label">Price (Monthly)</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" name="price_monthly" id="new_price" class="form-control" step="0.01" min="0" required placeholder="9.99">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="new_stripe_price_id" class="form-label">Stripe Price ID</label>
+                        <input type="text" name="stripe_price_id" id="new_stripe_price_id" class="form-control" placeholder="price_xxxxx">
+                        <small class="form-text text-muted">From Stripe Dashboard</small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="new_description" class="form-label">Description</label>
+                        <textarea name="description" id="new_description" class="form-control" rows="2" placeholder="Optional description"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Libraries</label>
+                        {% if libraries %}
+                        {% for library in libraries %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="libraries" value="{{ library.title }}" id="new_lib_{{ loop.index }}">
+                            <label class="form-check-label" for="new_lib_{{ loop.index }}">
+                                {{ library.title }} <small class="text-muted">({{ library.type }})</small>
+                            </label>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <p class="text-muted">No libraries available. Check Plex connection.</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Options</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="allow_downloads" id="new_allow_downloads">
+                            <label class="form-check-label" for="new_allow_downloads">
+                                <strong>Allow Downloads (Sync)</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Create Tier
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Existing Tiers -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Existing Tiers</h5>
+        </div>
+        <div class="card-body p-0">
+            {% if tiers %}
+            <div class="accordion" id="tiersAccordion">
+                {% for tier in tiers %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ tier.id }}">
+                        <button class="accordion-button {% if not loop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ tier.id }}">
+                            <strong>{{ tier.name }}</strong>
+                            <span class="ms-3 badge bg-primary">${{ "%.2f"|format(tier.price_monthly) }}/mo</span>
+                            {% if tier.allow_downloads %}
+                            <span class="ms-2 badge bg-success">Downloads</span>
+                            {% endif %}
+                            {% if not tier.active %}
+                            <span class="ms-2 badge bg-secondary">Inactive</span>
+                            {% endif %}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ tier.id }}" class="accordion-collapse collapse {% if loop.first %}show{% endif %}" data-bs-parent="#tiersAccordion">
+                        <div class="accordion-body">
+                            <form action="{{ url_for('admin.update_tier', tier_id=tier.id) }}" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="name_{{ tier.id }}" class="form-label">Tier Name</label>
+                                        <input type="text" name="name" id="name_{{ tier.id }}" class="form-control" value="{{ tier.name }}" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="price_{{ tier.id }}" class="form-label">Price (Monthly)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" name="price_monthly" id="price_{{ tier.id }}" class="form-control" step="0.01" min="0" value="{{ tier.price_monthly }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="stripe_price_id_{{ tier.id }}" class="form-label">Stripe Price ID</label>
+                                        <input type="text" name="stripe_price_id" id="stripe_price_id_{{ tier.id }}" class="form-control" value="{{ tier.stripe_price_id or '' }}">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="description_{{ tier.id }}" class="form-label">Description</label>
+                                        <textarea name="description" id="description_{{ tier.id }}" class="form-control" rows="2">{{ tier.description or '' }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Libraries</label>
+                                        {% if libraries %}
+                                        {% for library in libraries %}
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="libraries" value="{{ library.title }}" 
+                                                   id="tier_{{ tier.id }}_lib_{{ loop.index }}"
+                                                   {% if library.title in tier.library_names %}checked{% endif %}>
+                                            <label class="form-check-label" for="tier_{{ tier.id }}_lib_{{ loop.index }}">
+                                                {{ library.title }} <small class="text-muted">({{ library.type }})</small>
+                                            </label>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Options</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="allow_downloads" id="allow_downloads_{{ tier.id }}" {% if tier.allow_downloads %}checked{% endif %}>
+                                            <label class="form-check-label" for="allow_downloads_{{ tier.id }}">
+                                                <strong>Allow Downloads (Sync)</strong>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-save"></i> Update Tier
+                                    </button>
+                                    
+                                    <button type="button" class="btn {% if tier.active %}btn-warning{% else %}btn-success{% endif %}" 
+                                            onclick="document.getElementById('toggle_form_{{ tier.id }}').submit();">
+                                        <i class="bi bi-toggle-{% if tier.active %}on{% else %}off{% endif %}"></i> 
+                                        {% if tier.active %}Deactivate{% else %}Activate{% endif %}
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Separate form for toggle to avoid conflicts -->
+                            <form id="toggle_form_{{ tier.id }}" action="{{ url_for('admin.toggle_tier', tier_id=tier.id) }}" method="POST" class="d-none">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="p-4 text-center text-muted">
+                <p class="mb-0">No tiers configured yet. Create one above.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

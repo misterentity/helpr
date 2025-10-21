@@ -76,6 +76,20 @@ def create_app(config_class=Config):
     app.register_blueprint(main_bp)
     app.register_blueprint(admin_bp)
     
+    # Initialize database tables
+    with app.app_context():
+        db.create_all()
+    
+    # Initialize background scheduler for subscription management
+    from app.scheduler import init_scheduler
+    try:
+        scheduler = init_scheduler(app)
+        app.scheduler = scheduler
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Could not start background scheduler: {str(e)}")
+    
     # Error handlers
     @app.errorhandler(404)
     def not_found(error):

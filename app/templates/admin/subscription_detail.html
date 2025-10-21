@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Subscription Detail - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="h3">Subscription Detail</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('admin.subscriptions') }}">Subscriptions</a></li>
+                    <li class="breadcrumb-item active">{{ subscription.email }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Subscription Information</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Email:</dt>
+                        <dd class="col-sm-8">{{ subscription.email }}</dd>
+
+                        <dt class="col-sm-4">Plex Username:</dt>
+                        <dd class="col-sm-8">{{ subscription.plex_username }}</dd>
+
+                        <dt class="col-sm-4">Tier:</dt>
+                        <dd class="col-sm-8">{{ subscription.tier_name or 'Unknown' }}</dd>
+
+                        <dt class="col-sm-4">Status:</dt>
+                        <dd class="col-sm-8">
+                            {% if subscription.status == 'active' %}
+                            <span class="badge bg-success">Active</span>
+                            {% elif subscription.status == 'past_due' %}
+                            <span class="badge bg-warning">Past Due</span>
+                            {% elif subscription.status == 'cancelled' %}
+                            <span class="badge bg-secondary">Cancelled</span>
+                            {% elif subscription.status == 'expired' %}
+                            <span class="badge bg-danger">Expired</span>
+                            {% endif %}
+                            {% if subscription.grandfathered %}
+                            <span class="badge bg-success ms-2">Grandfathered</span>
+                            {% endif %}
+                        </dd>
+
+                        <dt class="col-sm-4">Created:</dt>
+                        <dd class="col-sm-8">{{ subscription.created_at }}</dd>
+
+                        <dt class="col-sm-4">Period Start:</dt>
+                        <dd class="col-sm-8">{{ subscription.current_period_start or 'N/A' }}</dd>
+
+                        <dt class="col-sm-4">Period End:</dt>
+                        <dd class="col-sm-8">
+                            {% if subscription.current_period_end %}
+                            {{ subscription.current_period_end }}
+                            {% if subscription.cancel_at_period_end %}
+                            <span class="badge bg-warning">Will Cancel</span>
+                            {% endif %}
+                            {% else %}
+                            <em>Never (Lifetime)</em>
+                            {% endif %}
+                        </dd>
+
+                        {% if subscription.stripe_customer_id %}
+                        <dt class="col-sm-4">Stripe Customer ID:</dt>
+                        <dd class="col-sm-8"><code>{{ subscription.stripe_customer_id }}</code></dd>
+                        {% endif %}
+
+                        {% if subscription.stripe_subscription_id %}
+                        <dt class="col-sm-4">Stripe Subscription ID:</dt>
+                        <dd class="col-sm-8"><code>{{ subscription.stripe_subscription_id }}</code></dd>
+                        {% endif %}
+                    </dl>
+                </div>
+            </div>
+
+            {% if stripe_data %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Stripe Information</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Stripe Status:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-info">{{ stripe_data.status }}</span></dd>
+
+                        <dt class="col-sm-4">Next Billing:</dt>
+                        <dd class="col-sm-8">{{ stripe_data.current_period_end }}</dd>
+
+                        <dt class="col-sm-4">Cancel at Period End:</dt>
+                        <dd class="col-sm-8">{{ 'Yes' if stripe_data.cancel_at_period_end else 'No' }}</dd>
+                    </dl>
+
+                    {% if stripe_data.billing_url %}
+                    <a href="{{ stripe_data.billing_url }}" class="btn btn-primary" target="_blank">
+                        <i class="bi bi-credit-card"></i> Manage Billing in Stripe
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Actions</h5>
+                </div>
+                <div class="card-body">
+                    {% if subscription.status in ['active', 'past_due'] %}
+                    <form action="{{ url_for('admin.revoke_subscription', subscription_id=subscription.id) }}" method="POST" onsubmit="return confirm('Revoke access for {{ subscription.email }}? This will cancel their Plex access immediately.');" class="mb-3">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-danger w-100">
+                            <i class="bi bi-x-circle"></i> Revoke Access
+                        </button>
+                    </form>
+                    {% endif %}
+
+                    <form action="{{ url_for('admin.extend_subscription', subscription_id=subscription.id) }}" method="POST" class="mb-3">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <label for="days" class="form-label">Extend Subscription</label>
+                        <div class="input-group mb-2">
+                            <input type="number" name="days" id="days" class="form-control" value="30" min="1" max="365">
+                            <span class="input-group-text">days</span>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">
+                            <i class="bi bi-calendar-plus"></i> Extend Period
+                        </button>
+                    </form>
+
+                    <a href="{{ url_for('admin.subscriptions') }}" class="btn btn-outline-secondary w-100">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -26,6 +26,14 @@ class Config:
     # Optional invite code
     INVITE_CODE = os.getenv('INVITE_CODE', '')
     
+    # Free tier invite code (for grandfathered/free access)
+    FREE_TIER_INVITE_CODE = os.getenv('FREE_TIER_INVITE_CODE', '')
+    
+    # Stripe settings
+    STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY', '')
+    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+    STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET', '')
+    
     # Configuration file path
     CONFIG_FILE = 'config.json'
     
@@ -60,9 +68,62 @@ class Config:
     def set_library_config(libraries):
         """Update the list of libraries to share in config.json."""
         config_path = Path(Config.CONFIG_FILE)
-        data = {'shared_libraries': libraries}
+        # Preserve tiers if they exist
+        existing_data = {}
+        if config_path.exists():
+            try:
+                with open(config_path, 'r') as f:
+                    existing_data = json.load(f)
+            except json.JSONDecodeError:
+                pass
+        
+        data = existing_data
+        data['shared_libraries'] = libraries
         with open(config_path, 'w') as f:
             json.dump(data, f, indent=2)
+    
+    @staticmethod
+    def get_tiers():
+        """Get the list of subscription tiers from config.json."""
+        config_path = Path(Config.CONFIG_FILE)
+        if config_path.exists():
+            try:
+                with open(config_path, 'r') as f:
+                    data = json.load(f)
+                    return data.get('tiers', [])
+            except json.JSONDecodeError as e:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.warning(f"Corrupt config.json file: {str(e)}")
+                return []
+        return []
+    
+    @staticmethod
+    def set_tiers(tiers):
+        """Update the list of subscription tiers in config.json."""
+        config_path = Path(Config.CONFIG_FILE)
+        # Preserve shared_libraries if they exist
+        existing_data = {}
+        if config_path.exists():
+            try:
+                with open(config_path, 'r') as f:
+                    existing_data = json.load(f)
+            except json.JSONDecodeError:
+                pass
+        
+        data = existing_data
+        data['tiers'] = tiers
+        with open(config_path, 'w') as f:
+            json.dump(data, f, indent=2)
+    
+    @staticmethod
+    def get_tier_by_id(tier_id):
+        """Get a specific tier by ID from config.json."""
+        tiers = Config.get_tiers()
+        for tier in tiers:
+            if tier.get('id') == tier_id:
+                return tier
+        return None
     
     @staticmethod
     def validate_config():
