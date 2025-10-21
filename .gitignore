@@ -54,3 +54,20 @@ Thumbs.db
 .azure/
 *.zip
 
+# Configuration files with potential secrets
+config.json
+
+# Log files
+*.log
+app.log
+
+# Deployment documentation (personal)
+AZURE_DEPLOYMENT.md
+DEPLOYMENT_SUCCESS.md
+DEPLOY_*.md
+QUICK_DEPLOY.md
+DEPLOY_NOW.txt
+
+# Memory Bank (internal project documentation)
+memory-bank/
+
